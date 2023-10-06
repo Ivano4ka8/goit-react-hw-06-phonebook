@@ -4,8 +4,18 @@ import {
   FormLabel,
 } from 'components/ContactsForm/ContactsForm.styled';
 import { FilterWrapper } from './FilterContacts.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from 'redux/filterSlice';
+import { getFilter } from 'redux/selectors';
 
-export const FilterContacts = ({ filter, filterChange }) => {
+export const FilterContacts = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+
+  const handleChange = event => {
+    dispatch(setFilter(event.target.value.toLowerCase()));
+  };
+
   return (
     <FilterWrapper>
       <FormLabel>
@@ -14,7 +24,7 @@ export const FilterContacts = ({ filter, filterChange }) => {
           type="text"
           name="filter"
           value={filter}
-          onChange={filterChange}
+          onChange={handleChange}
         />
       </FormLabel>
     </FilterWrapper>
